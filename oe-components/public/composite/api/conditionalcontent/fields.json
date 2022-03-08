@@ -1,0 +1,78 @@
+{
+  "Customer": {
+    "type": "!struct",
+    "label": "Customer",
+    "subfields": {
+      "Base": {
+        "type": "!struct",
+        "label": "Base",
+        "subfields": {
+          "Language": {
+            "type": "text",
+            "label": ""
+          },
+          "IsRecurringBuyer": {
+            "type": "boolean",
+            "label": ""
+          },
+          "CustomerType": {
+            "type": "text",
+            "label": ""
+          }
+        }
+      },
+      "Activity": {
+        "type": "!struct",
+        "label": "Activity",
+        "subfields": {
+          "LastLoginDate": {
+            "type": "datetime",
+            "label": ""
+          },
+          "LastOrderDate": {
+            "type": "datetime",
+            "label": ""
+          },
+          "LastOrderItemsCount": {
+            "type": "number",
+            "label": ""
+          },
+          "LastOrderLineItemsCount": {
+            "type": "number",
+            "label": "Number of line items in last order"
+          }
+        }
+      },
+      "State": {
+        "type": "!struct",
+        "label": "State",
+        "subfields": {
+          "IsLoggedIn": {
+            "type": "boolean",
+            "label": "IsLoggedIn"
+          }
+        }
+      },
+      "Custom": {
+        "type": "!struct",
+        "label": "Custom",
+        "subfields": {
+          "Test": {
+            "type": "text",
+            "label": "wer"
+          }
+        }
+      }
+    }
+  },
+  "Demo": {
+    "type": "!struct",
+    "label": "Demo",
+    "subfields": {
+      "IsGuest": {
+        "type": "boolean",
+        "label": "Is Guest"
+      }
+    }
+  }
+}

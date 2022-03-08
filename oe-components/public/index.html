@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>oe-conditional-content</title>
+  <link href="C1CMSConsoleCss.css" rel="stylesheet"></link>
+
+  <style>
+    .webcomponent {
+      display: block;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <oe-conditional-content id="web-component" onLoad="onLoad()" class="webcomponent" value="{JSON: [{test:123}]}"
+    onTest="onComponentAccept(event)" onCancel="onComponentCancel(event)" />
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+  <script>
+    class EditContentComponent extends HTMLElement {
+      connectedCallback() {
+        this.innerHTML = `<button>Edit Content</button>`;
+        let button = this.querySelector("button");
+        button.addEventListener("click", () => {
+          let newContent = prompt("Content","");
+          this.dispatchEvent(
+            new CustomEvent('change', {
+              detail: newContent,
+            })
+          );
+        });
+
+      }
+    }
+
+    function onComponentAccept({ detail }) {
+      alert(JSON.stringify(detail));
+    }
+
+    function onComponentCancel({ detail }) {
+      alert("onComponentCancel");
+    }
+    let element = document.getElementById('web-component');
+    element.addEventListener("accept", onComponentAccept);
+    customElements.define('content-editor', EditContentComponent);
+  </script>
+</body>
+
+</html>

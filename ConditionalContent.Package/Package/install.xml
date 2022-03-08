@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="yes"?>
+<mi:PackageInstaller xmlns:mi="http://www.composite.net/ns/management/packageinstaller/1.0">
+	<mi:PackageRequirements minimumCompositeVersion="6.0.0.0" maximumCompositeVersion="9.9999.9999.9999" />
+	<mi:PackageInformation name="Orckestra.Tools.ConditionalContent" groupName="Orckestra.Tools" version="0.1.0" author="Orckestra" website="https://orckestra.com" readMoreUrl="-" id="efdbb1a7-144c-47f5-91ca-183eafdd4206" canBeUninstalled="true" systemLocking="hard" flushOnCompletion="true" allowOverwrite="false">
+		<TechnicalDetails>-</TechnicalDetails>
+		<Description>-</Description>
+	</mi:PackageInformation>
+	<mi:PackageFragmentInstallerBinaries />
+	<mi:PackageFragmentInstallers>
+		<mi:Add installerType="Composite.Core.PackageSystem.PackageFragmentInstallers.FilePackageFragmentInstaller, Composite" uninstallerType="Composite.Core.PackageSystem.PackageFragmentInstallers.FilePackageFragmentUninstaller, Composite">
+			<Files>
+				<File sourceFilename="~\App_Data\Razor\Orckestra\Tools\ConditionalContent.cshtml" targetFilename="~\App_Data\Razor\Orckestra\Tools\ConditionalContent.cshtml" allowOverwrite="false" />
+				<File sourceFilename="~\Bin\JsonLogic.Net.dll" targetFilename="~\Bin\JsonLogic.Net.dll" allowOverwrite="false" />
+				<File sourceFilename="~\Bin\Orckestra.Tools.ConditionalContent.dll" targetFilename="~\Bin\Orckestra.Tools.ConditionalContent.dll" allowOverwrite="false" />
+			</Files>
+			<Directories>
+				<Directory sourceDirectory="~\Composite\InstalledPackages\Orckestra.Tools.ConditionalContent\" targetDirectory="~\Composite\InstalledPackages\Orckestra.Tools.ConditionalContent\" allowOverwrite="false" deleteTargetDirectory="false" />
+			</Directories>
+		</mi:Add>
+	</mi:PackageFragmentInstallers>
+</mi:PackageInstaller>
