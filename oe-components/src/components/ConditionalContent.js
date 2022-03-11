@@ -1,14 +1,39 @@
 import React, { useState } from 'react';
 import { Utils as QbUtils } from 'react-awesome-query-builder';
 import Grid from '@material-ui/core/Grid';
-import { Box } from '@material-ui/core';
+import { Box, InputBase } from '@material-ui/core';
 import { ContentGroup } from './ContentGroup';
 import { ContentEditorContainer } from './ContentEditorContainer';
 import Button from '@material-ui/core/Button';
+import { arrayMoveImmutable } from 'array-move';
+
+import { sortableContainer, sortableElement } from 'react-sortable-hoc';
+
+const SortableGroup = sortableElement(
+  ({ group, config, groupIndex, onChangeQuery, onChangeContent, onChangeTitle, deleteContentGroup }) => (
+    <ContentGroup
+      index={groupIndex}
+      config={config}
+      content={group.content}
+      title={group.title}
+      query={group.query}
+      onChangeQuery={onChangeQuery(groupIndex)}
+      onChangeContent={onChangeContent(groupIndex)}
+      onChangeTitle={onChangeTitle(groupIndex)}
+      onDelete={deleteContentGroup(groupIndex)}
+    />
+  )
+);
+
+const SortableContainer = sortableContainer(({ children }) => {
+  return <div className="divide-y divide-gray-300 space-y-6">{children}</div>;
+});
 
 const queryValue = { id: QbUtils.uuid(), type: 'group' };
 
 export const ConditionalContent = ({ config, value, onAccept, onCancel, debug }) => {
+  const [newTitle, setNewTitle] = useState('');
+
   const blank = () => ({
     content: `<html xmlns="http://www.w3.org/1999/xhtml">
     <head></head>
@@ -27,7 +52,8 @@ export const ConditionalContent = ({ config, value, onAccept, onCancel, debug })
   const [defaultContent, setDefaultContent] = useState(value?.Parameters?.defaultContent);
 
   const addCondition = () => {
-    setContentGroups([...contentGroups, blank()]);
+    setContentGroups([{ ...blank(), title: newTitle }, ...contentGroups]);
+    setNewTitle('');
   };
 
   const deleteContentGroup = (i) => () => {
@@ -46,30 +72,49 @@ export const ConditionalContent = ({ config, value, onAccept, onCancel, debug })
     setContentGroupsByIndex(i, { query: immutableTree });
   };
 
+  const onChangeTitle = (i) => (title) => {
+    setContentGroupsByIndex(i, { title: title });
+  };
+
+  const onSortEnd = ({ oldIndex, newIndex }) => {
+    setContentGroups(arrayMoveImmutable(contentGroups, oldIndex, newIndex));
+  };
+
   return (
     <Box display="flex" flexDirection="column" sx={{ height: '100%' }}>
       <Box flexGrow="1" overflow="auto" className="p-5 divide-y divide-gray-300 space-y-6">
+        <div className="flex">
+          <div className="flex-none leading-7">Content Identifier</div>
+          <div className="flex-grow px-4">
+            <InputBase value={newTitle} onChange={(e) => setNewTitle(e.target.value)}></InputBase>
+          </div>
+          <div className="flex-none">
+            <Button onClick={addCondition} variant="outlined">
+              Add Option
+            </Button>
+          </div>
+        </div>
+
+        <SortableContainer onSortEnd={onSortEnd} useDragHandle>
+          {contentGroups.map((c, i) => (
+            <SortableGroup
+              key={`item-${c.i}`}
+              index={i}
+              groupIndex={i}
+              group={c}
+              config={config}
+              onChangeQuery={onChangeQuery}
+              onChangeContent={onChangeContent}
+              onChangeTitle={onChangeTitle}
+              deleteContentGroup={deleteContentGroup}
+            />
+          ))}
+        </SortableContainer>
         <div>
           <h1 class="mt-0">Default Content</h1>
           <div>
             <ContentEditorContainer content={defaultContent} title="Edit Default Content" onChangeContent={setDefaultContent} />
           </div>
-        </div>
-        {contentGroups.map((c, i) => (
-          <ContentGroup
-            index={i}
-            config={config}
-            content={c.content}
-            query={c.query}
-            onChangeQuery={onChangeQuery(i)}
-            onChangeContent={onChangeContent(i)}
-            onDelete={deleteContentGroup(i)}
-          />
-        ))}
-        <div className="py-4 space-y-2">
-           <Button onClick={addCondition}  variant="outlined">
-            Add Personalized Content
-          </Button>
         </div>
 
         {debug ? (
@@ -79,6 +124,7 @@ export const ConditionalContent = ({ config, value, onAccept, onCancel, debug })
                 {
                   groups: contentGroups.map((c) => ({
                     content: c.content,
+                    title: c.title ?? '',
                     query: QbUtils.jsonLogicFormat(c.query, config),
                   })),
                   defaultContent: defaultContent,

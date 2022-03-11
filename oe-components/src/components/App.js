@@ -10,7 +10,7 @@ import { ThemeProvider } from '@material-ui/core';
 
 const InitialConfig = OrckestraConfig;
 
-export const App = ({ value, onAccept, onCancel, theme }) => {
+export const App = ({ value, onAccept, onCancel, theme, debug }) => {
   const [config, setConfig] = useState(null);
 
   const getConditions = async () => {
@@ -35,6 +35,6 @@ export const App = ({ value, onAccept, onCancel, theme }) => {
   }, []);
 
   return <ThemeProvider theme={theme}>
-    {config ? <ConditionalContent config={config} value={value} onAccept={onAccept} onCancel={onCancel} debug={false} /> : <div>Loading ... </div>}
+    {config ? <ConditionalContent config={config} value={value} onAccept={onAccept} onCancel={onCancel} debug={debug} /> : <div>Loading ... </div>}
   </ThemeProvider>;
 };
