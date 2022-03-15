@@ -52,7 +52,11 @@ const types = {
       hideOperator: true,
     },
   }),
+  datetime: mergeConfig(MaterialConfig.types.datetime, {
+    valueSources: ['value'],
+  }),
   text: mergeConfig(MaterialConfig.types.text, {
+    valueSources: ['value'],
     operators: ['equal', 'not_equal', 'is_empty', 'is_not_empty', 'is_null', 'is_not_null'],
   }),
 };

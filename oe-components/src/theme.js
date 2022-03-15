@@ -21,7 +21,7 @@ const themeDefinition = {
                 },
                 secondary: {
                         light: "#CCC",
-                        main: "#999",
+                        main: "#22b980",
                         dark: "#333",
                         contrastText: "#fff",
                 },
