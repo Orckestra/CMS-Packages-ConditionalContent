@@ -22,7 +22,8 @@ namespace Orckestra.Tools.ConditionalContent.Providers
                     new Field()
                     {
                         Label = "Is Guest",
-                        Type = "boolean"
+                        Type = "boolean",
+                        DefaultValue = true
                     }
                 }
             };

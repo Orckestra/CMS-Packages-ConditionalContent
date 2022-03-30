@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using Composite.Core;
 using Orckestra.Tools.ConditionalContent.Providers;
@@ -7,7 +8,7 @@ using Orckestra.Tools.ConditionalContent.Types.Config;
 namespace Orckestra.Tools.ConditionalContent.Controllers
 {
     [RoutePrefix("composite/api/conditionalcontent")]
-    public class ConditionalContentApiController: ApiController
+    public class ConditionalContentApiController : ApiController
     {
         [Route("status")]
         [HttpGet]
@@ -20,14 +21,23 @@ namespace Orckestra.Tools.ConditionalContent.Controllers
         [HttpGet]
         public IHttpActionResult GetFields()
         {
-            var conditionProviders = ServiceLocator.GetServices<IConditionProvider>();
-
-            return Ok(conditionProviders.ToDictionary(d => d.Name, d => new Field()
+            try
             {
-                Label = d.Name,
-                Type = "!struct",
-                SubFields = d.GetFields()
-            }));
+                var conditionProviders = ServiceLocator.GetServices<IConditionProvider>();
+
+                return Ok(conditionProviders.ToDictionary(d => d.Name, d => new Field()
+                {
+                    Label = d.Name,
+                    Type = "!struct",
+                    SubFields = d.GetFields()
+                }));
+
+            }
+            catch (Exception e)
+            {
+                Log.LogError(nameof(ConditionalContentApiController), e);
+                throw;
+            }
         }
 
     }

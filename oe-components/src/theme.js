@@ -31,5 +31,6 @@ const themeDefinition = {
 
 const { muiTheme } = createThemes(applicationTheme, themeDefinition);
 muiTheme.overrides.MuiInputBase.root.fontSize = 14;
+muiTheme.overrides.MuiButtonBase.root["& + &"] = {};// clear sapve betwean buttons
 
 export default muiTheme;

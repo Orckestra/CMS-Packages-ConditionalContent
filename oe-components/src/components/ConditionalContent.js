@@ -122,12 +122,10 @@ export const ConditionalContent = ({ config, value, onAccept, onCancel, debug })
             <pre>
               {JSON.stringify(
                 {
-                  groups: contentGroups.map((c) => ({
-                    content: c.content,
-                    title: c.title ?? '',
-                    query: QbUtils.jsonLogicFormat(c.query, config),
-                  })),
-                  defaultContent: defaultContent,
+                  Parameters: {
+                    groups: contentGroups.map((d) => ({ ...d, query: QbUtils.jsonLogicFormat(d.query, config).logic })),
+                    defaultContent: defaultContent,
+                  },
                 },
                 null,
                 ' '

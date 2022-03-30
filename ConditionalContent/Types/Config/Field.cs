@@ -16,5 +16,8 @@ namespace Orckestra.Tools.ConditionalContent.Types.Config
 
         [JsonProperty("subfields")]
         public Dictionary<string, Field> SubFields { get; set; }
+
+        [JsonProperty("defaultValue")]
+        public object DefaultValue { get; set; }
     }
 }
