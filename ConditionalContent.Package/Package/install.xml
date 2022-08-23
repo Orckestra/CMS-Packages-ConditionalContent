@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <mi:PackageInstaller xmlns:mi="http://www.composite.net/ns/management/packageinstaller/1.0">
 	<mi:PackageRequirements minimumCompositeVersion="6.0.0.0" maximumCompositeVersion="9.9999.9999.9999" />
-	<mi:PackageInformation name="Orckestra.Tools.ConditionalContent" groupName="Orckestra.Tools" version="0.1.0" author="Orckestra" website="https://orckestra.com" readMoreUrl="-" id="efdbb1a7-144c-47f5-91ca-183eafdd4206" canBeUninstalled="true" systemLocking="hard" flushOnCompletion="true" allowOverwrite="false">
+	<mi:PackageInformation name="Orckestra.Tools.ConditionalContent" groupName="Orckestra.Tools" version="0.1.1" author="Orckestra" website="https://orckestra.com" readMoreUrl="https://orckestra.com" id="efdbb1a7-144c-47f5-91ca-183eafdd4206" canBeUninstalled="true" systemLocking="hard" flushOnCompletion="true" allowOverwrite="false">
 		<TechnicalDetails>-</TechnicalDetails>
 		<Description>-</Description>
 	</mi:PackageInformation>
@@ -12,6 +12,8 @@
 				<File sourceFilename="~\App_Data\Razor\Orckestra\Tools\ConditionalContent.cshtml" targetFilename="~\App_Data\Razor\Orckestra\Tools\ConditionalContent.cshtml" allowOverwrite="false" />
 				<File sourceFilename="~\Bin\JsonLogic.Net.dll" targetFilename="~\Bin\JsonLogic.Net.dll" allowOverwrite="false" />
 				<File sourceFilename="~\Bin\Orckestra.Tools.ConditionalContent.dll" targetFilename="~\Bin\Orckestra.Tools.ConditionalContent.dll" allowOverwrite="false" />
+				<File sourceFilename="~\Composite\InstalledPackages\localization\Orckestra.Tools.ConditionalContent.en-US.xml" targetFilename="~\Composite\InstalledPackages\localization\Orckestra.Tools.ConditionalContent.en-US.xml" allowOverwrite="false" />
+				<File sourceFilename="~\Composite\InstalledPackages\localization\Orckestra.Tools.ConditionalContent.fr-FR.xml" targetFilename="~\Composite\InstalledPackages\localization\Orckestra.Tools.ConditionalContent.fr-FR.xml" allowOverwrite="false" />
 			</Files>
 			<Directories>
 				<Directory sourceDirectory="~\Composite\InstalledPackages\Orckestra.Tools.ConditionalContent\" targetDirectory="~\Composite\InstalledPackages\Orckestra.Tools.ConditionalContent\" allowOverwrite="false" deleteTargetDirectory="false" />

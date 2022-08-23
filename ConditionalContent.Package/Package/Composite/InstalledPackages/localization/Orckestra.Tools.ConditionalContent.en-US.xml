@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<strings>
+  <string key="Usage" value="Usage: " />
+  <string key="UsageList" value="Conditions are evaluated from top to bottom.|||Content for the first true condition will appear.|||Re-order conditions as appropriate|||Default content will appear if all conditions fail." />
+</strings>

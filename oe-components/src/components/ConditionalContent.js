@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { arrayMoveImmutable } from 'array-move';
 
 import { sortableContainer, sortableElement } from 'react-sortable-hoc';
+import { useTranslation } from '../hooks/useTranslation';
 
 const SortableGroup = sortableElement(
   ({ group, config, groupIndex, onChangeQuery, onChangeContent, onChangeTitle, deleteContentGroup }) => (
@@ -32,6 +33,7 @@ const SortableContainer = sortableContainer(({ children }) => {
 const queryValue = { id: QbUtils.uuid(), type: 'group' };
 
 export const ConditionalContent = ({ config, value, onAccept, onCancel, debug }) => {
+  const { t } = useTranslation();
   const [newTitle, setNewTitle] = useState('');
 
   const blank = () => ({
@@ -133,14 +135,23 @@ export const ConditionalContent = ({ config, value, onAccept, onCancel, debug })
             </pre>
           </Grid>
         ) : null}
+        <Grid container className="p-3 flex border-t">
+          <Box className="space-x-2">
+            {t('Usage')}
+            <ul className="list-disc ml-4">
+              {t('UsageList')
+                .split('|||')
+                .map((d) => (
+                  <li>{d}</li>
+                ))}
+            </ul>
+          </Box>
+        </Grid>
       </Box>
       <Box className="p-3 flex justify-end bg-gray-100 border-t">
         <Box className="space-x-2">
-          <button onClick={onCancel} className="btn-secondary">
-            Cancel
-          </button>
           <button
-            className="btn-primary"
+            className="btn-primary w-20"
             onClick={() =>
               onAccept({
                 Parameters: {
@@ -150,7 +161,10 @@ export const ConditionalContent = ({ config, value, onAccept, onCancel, debug })
               })
             }
           >
-            Ok
+            {t('ui:Website.Dialogs.LabelAccept')}
+          </button>
+          <button onClick={onCancel} className="btn-secondary w-20">
+            {t('ui:Website.Dialogs.LabelCancel')}
           </button>
         </Box>
       </Box>

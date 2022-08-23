@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<strings>
+  <string key="Usage" value="Utilisation:" />
+  <string key="UsageList" value="Les conditions sont évaluées en ordre croissant.|||Le contenu de la première condition activée sera affiché.|||Vous pouvez modifier l’ordre des conditions selon vos besoins.|||Le contenu par défaut sera affiché si toutes les autres conditions échouent." />
+</strings>
