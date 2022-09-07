@@ -41,7 +41,8 @@
     </Reference>
     <Reference Include="JsonLogic.Net, Version=1.1.9.0, Culture=neutral, PublicKeyToken=415df780b7f1eaa5, processorArchitecture=MSIL">
       <HintPath>..\packages\JsonLogic.Net.1.1.11\lib\netstandard2.0\JsonLogic.Net.dll</HintPath>
-      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\C1CMS.Assemblies.6.10.7583.21856\lib\net471\Microsoft.Extensions.DependencyInjection.dll</HintPath>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConditionalContent", "Condi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConditionalContent.Package", "ConditionalContent.Package\ConditionalContent.Package.csproj", "{EE3C27BD-9AFB-4286-B726-E9FE1C7C636E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConditionalContent.Tests", "ConditionalContent.Tests\ConditionalContent.Tests.csproj", "{761A111D-CD43-4287-9C33-33F91FCAFC4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EE3C27BD-9AFB-4286-B726-E9FE1C7C636E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE3C27BD-9AFB-4286-B726-E9FE1C7C636E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE3C27BD-9AFB-4286-B726-E9FE1C7C636E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{761A111D-CD43-4287-9C33-33F91FCAFC4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{761A111D-CD43-4287-9C33-33F91FCAFC4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{761A111D-CD43-4287-9C33-33F91FCAFC4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{761A111D-CD43-4287-9C33-33F91FCAFC4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
