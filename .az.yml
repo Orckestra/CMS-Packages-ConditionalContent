@@ -64,7 +64,7 @@ stages:
         Script: |
           $installXml = [xml](get-content ("$(Build.SourcesDirectory)\ConditionalContent.Package\Package\install.xml"))
           $packageInformation = $installXml.SelectSingleNode("//*[local-name()='PackageInformation']")
-          $packageInformation.version = '0.1.$(buildVersion)'
+          $packageInformation.version = '$(GitVersion.MajorMinorPatch)'
           $installXml.Save("$(Build.SourcesDirectory)\ConditionalContent.Package\Package\install.xml");
 
     - task: VSBuild@1
@@ -75,24 +75,14 @@ stages:
 
 
     - task: PowerShell@1
-      name: PowerShell_14
       displayName: Tag source
-      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
       inputs:
         scriptType: inlineScript
         arguments: -version $(SemanticVersion)
         inlineScript: |
-              git tag $(GITVERSION.MAJORMINORPATCH)
-              git push origin $(GITVERSION.MAJORMINORPATCH)
-
-    - task: PowerShell@1
-      ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
-        displayName: 'Tag Sources'
-        inputs:
-          scriptType: 'inlineScript'
-          inlineScript: |
-            git tag $(GITVERSION.MAJORMINORPATCH)
-            git push origin $(GITVERSION.MAJORMINORPATCH)
+              git tag $(GitVersion.MajorMinorPatch)
+              git push origin $(GitVersion.MajorMinorPatch)
 
     - task: CopyFiles@2
       displayName: 'Copy Orckestra*.zip to Publish Artifact folder'
