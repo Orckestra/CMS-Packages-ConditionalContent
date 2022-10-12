@@ -79,7 +79,6 @@ stages:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
       inputs:
         scriptType: inlineScript
-        arguments: -version $(SemanticVersion)
         inlineScript: |
               git tag $(GitVersion.MajorMinorPatch)
               git push origin $(GitVersion.MajorMinorPatch)
@@ -94,5 +93,18 @@ stages:
         TargetFolder: '$(build.artifactstagingdirectory)/Packages'
         flattenFolders: true
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
+    - task: gitreleasemanager/setup@0
+      displayName: Install GitReleaseManager
+      inputs:
+        versionSpec: '0.10.x'
+      
+    - task: gitreleasemanager/create@0
+      displayName: Create release with GitReleaseManager
+      inputs:
+        owner: Orckestra
+        repository: CMS-Packages-ConditionalContent
+        token: $(GITHUB_TOKEN)
+        milestone: $(GitVersion.SemVer)
+        name: 'v$(GitVersion.SemVer)'
+        assets: |
+          ConditionalContent.Package/Release/Orckestra.Tools.ConditionalContent.zip
