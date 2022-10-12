@@ -57,16 +57,16 @@ stages:
         vsVersion: "16.0"
 
 
-  - task: PowerShell@1
-    name: PowerShell_14
-    displayName: Tag source
-    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
-    inputs:
-      scriptType: inlineScript
-      arguments: -version $(SemanticVersion)
-       inlineScript: |
-            git tag $(GITVERSION.MAJORMINORPATCH)
-            git push origin $(GITVERSION.MAJORMINORPATCH)
+    - task: PowerShell@1
+      name: PowerShell_14
+      displayName: Tag source
+      condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+      inputs:
+        scriptType: inlineScript
+        arguments: -version $(SemanticVersion)
+        inlineScript: |
+              git tag $(GITVERSION.MAJORMINORPATCH)
+              git push origin $(GITVERSION.MAJORMINORPATCH)
 
     - task: PowerShell@1
       ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
@@ -75,7 +75,7 @@ stages:
           scriptType: 'inlineScript'
           inlineScript: |
             git tag $(GITVERSION.MAJORMINORPATCH)
-            git push origin $(GITVERSION.MAJORMINORPATCH)     
+            git push origin $(GITVERSION.MAJORMINORPATCH)
 
     - task: CopyFiles@2
       displayName: 'Copy Orckestra*.zip to Publish Artifact folder'
