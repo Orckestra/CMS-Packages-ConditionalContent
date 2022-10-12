@@ -41,6 +41,11 @@ stages:
         versionSpec: '5.x'
 
     - task: gitversion/execute@0
+      inputs:
+        updateAssemblyInfo: true
+        updateAssemblyInfoFilename: 'ConditionalContent/Properties/AssemblyInfo.cs'
+
+
     # - task: GitVersion@5
     #   inputs:
     #     runtime: 'full'
