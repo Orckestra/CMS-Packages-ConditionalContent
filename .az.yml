@@ -52,6 +52,12 @@ stages:
     #     updateAssemblyInfo: true
     #     updateAssemblyInfoFilename: 'ConditionalContent/ConditionalContent.csproj'
 
+    - task: NuGetCommand@2
+      displayName: "Nuget Restore"
+      inputs:
+        command: 'restore'
+        restoreSolution: '**/*.sln'
+        feedsToUse: 'config'
     - task: InlinePowershell@1  
       displayName: "Update version in Orckestra.Tools.ConditionalContent Install.xml"
       inputs:
