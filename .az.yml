@@ -30,11 +30,6 @@ stages:
       fetchDepth: 0 
       clean: true
       persistCredentials: True
-    - task: NodeTool@0
-      displayName: 'Use Node 12.x'
-      inputs:
-        versionSpec: 10.x
-
     - task: gitversion/setup@0
       displayName: Install GitVersion
       inputs:
@@ -43,10 +38,14 @@ stages:
     - task: gitversion/execute@0
       inputs:
         updateAssemblyInfo: true
-        updateAssemblyInfoFilename: './ConditionalContent/Properties/AssemblyInfo.cs'
 
 
-    # - task: GitVersion@5
+    - task: NodeTool@0
+      displayName: 'Use Node 12.x'
+      inputs:
+        versionSpec: 10.x
+
+      # - task: GitVersion@5
     #   inputs:
     #     runtime: 'full'
     #     configFilePath: 'GitVersionConfig.yaml'
