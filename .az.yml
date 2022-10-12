@@ -1,0 +1,91 @@
+trigger:
+  branches:
+    include:
+    - master
+    - develop
+    - feature*
+    - hotfix*
+    - bug*
+    - release*
+
+variables: 
+  buildVersion: $(GitVersion.PreReleaseNumber) 
+
+stages:
+- stage: Build
+  jobs:
+
+  - job: Build
+
+    pool:
+      vmImage: 'windows-2019'
+
+    variables:
+      buildPlatform: 'Any CPU'
+      buildConfiguration: 'Release'
+
+    steps:
+
+    - checkout: self
+      clean: true
+      persistCredentials: True
+    - task: NodeTool@0
+      displayName: 'Use Node 12.x'
+      inputs:
+        versionSpec: 10.x
+
+    - task: GitVersion@5
+      inputs:
+        runtime: 'full'
+        configFilePath: 'GitVersionConfig.yaml'
+        updateAssemblyInfo: true
+        updateAssemblyInfoFilename: 'ConditionalContent/ConditionalContent.csproj'
+
+    - task: InlinePowershell@1  
+      displayName: "Update version in Orckestra.Tools.ConditionalContent Install.xml"
+      inputs:
+        Script: |
+          $installXml = [xml](get-content ("$(Build.SourcesDirectory)\ConditionalContent.Package\Package\install.xml"))
+          $packageInformation = $installXml.SelectSingleNode("//*[local-name()='PackageInformation']")
+          $packageInformation.version = '0.1.$(buildVersion)'
+          $installXml.Save("$(Build.SourcesDirectory)\ConditionalContent.Package\Package\install.xml");
+
+    - task: VSBuild@1
+      displayName: 'Build solution ConditionalContent'
+      inputs:
+        solution: .\ConditionalContent.sln 
+        vsVersion: "16.0"
+
+
+  - task: PowerShell@1
+    name: PowerShell_14
+    displayName: Tag source
+    condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+    inputs:
+      scriptType: inlineScript
+      arguments: -version $(SemanticVersion)
+       inlineScript: |
+            git tag $(GITVERSION.MAJORMINORPATCH)
+            git push origin $(GITVERSION.MAJORMINORPATCH)
+
+    - task: PowerShell@1
+      ${{ if eq(variables['Build.SourceBranchName'], 'master') }}:
+        displayName: 'Tag Sources'
+        inputs:
+          scriptType: 'inlineScript'
+          inlineScript: |
+            git tag $(GITVERSION.MAJORMINORPATCH)
+            git push origin $(GITVERSION.MAJORMINORPATCH)     
+
+    - task: CopyFiles@2
+      displayName: 'Copy Orckestra*.zip to Publish Artifact folder'
+      inputs:
+        SourceFolder: '$(build.sourcesdirectory)'
+        Contents: |
+          **\Orckestra*.zip
+
+        TargetFolder: '$(build.artifactstagingdirectory)/Packages'
+        flattenFolders: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
