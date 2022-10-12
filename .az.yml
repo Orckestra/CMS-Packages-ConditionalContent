@@ -35,12 +35,18 @@ stages:
       inputs:
         versionSpec: 10.x
 
-    - task: GitVersion@5
+    - task: gitversion/setup@0
+      displayName: Install GitVersion
       inputs:
-        runtime: 'full'
-        configFilePath: 'GitVersionConfig.yaml'
-        updateAssemblyInfo: true
-        updateAssemblyInfoFilename: 'ConditionalContent/ConditionalContent.csproj'
+        versionSpec: '5.x'
+
+    - task: gitversion/execute@0
+    # - task: GitVersion@5
+    #   inputs:
+    #     runtime: 'full'
+    #     configFilePath: 'GitVersionConfig.yaml'
+    #     updateAssemblyInfo: true
+    #     updateAssemblyInfoFilename: 'ConditionalContent/ConditionalContent.csproj'
 
     - task: InlinePowershell@1  
       displayName: "Update version in Orckestra.Tools.ConditionalContent Install.xml"
