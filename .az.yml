@@ -104,7 +104,6 @@ stages:
         owner: Orckestra
         repository: CMS-Packages-ConditionalContent
         token: $(GITHUB_TOKEN)
-        milestone: $(GitVersion.SemVer)
         name: 'v$(GitVersion.SemVer)'
         assets: |
           ConditionalContent.Package/Release/Orckestra.Tools.ConditionalContent.zip
