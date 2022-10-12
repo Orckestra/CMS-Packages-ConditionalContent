@@ -80,8 +80,8 @@ stages:
       inputs:
         scriptType: inlineScript
         inlineScript: |
-              git tag $(GitVersion.MajorMinorPatch)
-              git push origin $(GitVersion.MajorMinorPatch)
+              git tag $(GitVersion.SemVer)
+              git push origin $(GitVersion.SemVer)
 
     - task: CopyFiles@2
       displayName: 'Copy Orckestra*.zip to Publish Artifact folder'
