@@ -116,6 +116,7 @@ stages:
         repository: 'CMS-Packages-ConditionalContent'
         token: '$(GITHUB_TOKEN)'
         name: 'v$(GitVersion.SemVer)'
+        milestone: 'Release'
         inputFilePath: '$(build.sourcesdirectory)/release.md'
         assets: 'ConditionalContent.Package/Release/Orckestra.Tools.ConditionalContent.zip'
     # - task: gitreleasemanager/create@0
