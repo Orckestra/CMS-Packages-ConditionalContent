@@ -108,7 +108,7 @@ stages:
     - task: gitreleasemanager/setup@0
       displayName: Install GitReleaseManager
       inputs:
-        versionSpec: '0.10.x'
+        versionSpec: '0.13.x'
 
     - task: gitreleasemanager/create@0
       displayName: Create release with GitReleaseManager
