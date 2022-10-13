@@ -109,6 +109,6 @@ stages:
         repository: CMS-Packages-ConditionalContent
         token: $(GITHUB_TOKEN)
         name: 'v$(GitVersion.SemVer)'
-        inputFilePath: $(build.sourcesdirectory)/release.md 
+        inputFilePath: '$(build.sourcesdirectory)/release.md' 
         assets: |
           ConditionalContent.Package/Release/Orckestra.Tools.ConditionalContent.zip
