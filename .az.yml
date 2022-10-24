@@ -122,7 +122,7 @@ stages:
 
     - task: CmdLine@2
       inputs:
-        script: 'dotnet-gitreleasemanager create --owner Orckestra  --inputFilePath $(build.sourcesdirectory)/release.md --repository CMS-Packages-ConditionalContent --token $(GITHUB_TOKEN) --targetDirectory $(build.sourcesdirectory) --name v$(GitVersion.SemVer) --assets $(build.sourcesdirectory)\Release\Orckestra.Tools.ConditionalContent.zip'
+        script: 'dotnet-gitreleasemanager create --owner Orckestra  --inputFilePath $(build.sourcesdirectory)/release.md --repository CMS-Packages-ConditionalContent --token $(GITHUB_TOKEN) --targetDirectory $(build.sourcesdirectory) --name v$(GitVersion.SemVer) --assets $(build.sourcesdirectory)\ConditionalContent.Package\Release\Orckestra.Tools.ConditionalContent.zip'
 
     # - task: gitreleasemanager/create@0
     #   displayName: Create release with GitReleaseManager
