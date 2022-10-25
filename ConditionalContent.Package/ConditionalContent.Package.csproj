@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PersonalizedContent.Package</RootNamespace>
-    <AssemblyName>PersonalizedContent.Package</AssemblyName>
+    <RootNamespace>ConditionalContent.Package</RootNamespace>
+    <AssemblyName>ConditionalContent.Package</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -49,6 +49,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -70,6 +71,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +138,7 @@ cd "$(ProjectDir)"
 SET PackageName=Orckestra.Tools.ConditionalContent
 
 ROBOCOPY "$(ProjectDir)\Package" "$(TargetDir)_Package"  /MIR
+
 ROBOCOPY "$(SolutionDir)\oe-components\build\static" "$(TargetDir)_Package\Composite\InstalledPackages\Orckestra.Tools.ConditionalContent"  /MIR
 
 
@@ -144,6 +147,7 @@ if not exist "$(TargetDir)_Package\Bin" (
 )
 
 COPY "$(TargetDir)\*.dll" "$(TargetDir)_Package\Bin\"
+DEL "$(TargetDir)_Package\Bin\$(ProjectName).dll"   
 
 DEL "$(TargetDir)%25PackageName%25.zip"
 
