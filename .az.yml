@@ -122,5 +122,14 @@ stages:
 
     #  the task gitreleasemanager/create@0 ignore parameter inputFilePath
     - task: CmdLine@2
+      displayName: gitreleasemanager create
       inputs:
         script: 'dotnet-gitreleasemanager create --owner Orckestra  --inputFilePath $(build.sourcesdirectory)/release.md --repository CMS-Packages-ConditionalContent --token $(GITHUB_TOKEN) --targetDirectory $(build.sourcesdirectory) --name v$(GitVersion.SemVer) --assets $(build.sourcesdirectory)\ConditionalContent.Package\Release\Orckestra.Tools.ConditionalContent.zip'
+
+    - task: gitreleasemanager/publish@0
+      displayName: gitreleasemanager publish
+      inputs:
+        owner: 'Orckestra'
+        repository: 'CMS-Packages-ConditionalContent'
+        token: '$(GITHUB_TOKEN)'
+        tagName: 'v$(GitVersion.SemVer)'
