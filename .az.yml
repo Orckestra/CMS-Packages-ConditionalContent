@@ -69,10 +69,11 @@ stages:
 
     - task: PowerShell@1
       displayName: Tag source
-      condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
       inputs:
         scriptType: inlineScript
         inlineScript: |
+              Write-Host 'Test'
               git tag $(GitVersion.SemVer)
               git push origin $(GitVersion.SemVer)
 
