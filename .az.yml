@@ -110,7 +110,7 @@ stages:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
       displayName: Install GitReleaseManager
       inputs:
-        versionSpec: '0.13.x'
+        versionSpec: '0.12.x'
 
     #  the task gitreleasemanager/create@0 ignore parameter inputFilePath
     - task: CmdLine@2
