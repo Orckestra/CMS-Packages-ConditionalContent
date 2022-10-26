@@ -117,7 +117,9 @@ stages:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
       displayName: gitreleasemanager create
       inputs:
-        script: 'dotnet-gitreleasemanager create --owner Orckestra  --inputFilePath $(build.sourcesdirectory)/release.md --repository CMS-Packages-ConditionalContent --token $(GITHUB_TOKEN) --targetDirectory $(build.sourcesdirectory) --name v$(GitVersion.SemVer) --assets $(build.sourcesdirectory)\ConditionalContent.Package\Release\Orckestra.Tools.ConditionalContent.zip'
+        script: |
+          dotnet-gitreleasemanager create --owner Orckestra  --inputFilePath $(build.sourcesdirectory)/release.md --repository CMS-Packages-ConditionalContent --token $(GITHUB_TOKEN) --targetDirectory $(build.sourcesdirectory) --name v$(GitVersion.SemVer)
+          dotnet-gitreleasemanager addasset -t v$(GitVersion.SemVer) -o Orckestra --token $(GITHUB_TOKEN) -r CMS-Packages-ConditionalContent -a $(build.sourcesdirectory)\ConditionalContent.Package\Release\Orckestra.Tools.ConditionalContent.zip
 
     - task: gitreleasemanager/publish@0
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) 
